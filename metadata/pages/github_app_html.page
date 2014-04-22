@@ -1,0 +1,53 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"
+           applyHtmlTag="false" controller="GithubController" docType="html-5.0"
+           action="{!onLoad}">
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+    <title>Issues</title>
+
+    <link href="{!URLFOR($Resource.github_app_resources, 'lib/ionic/css/ionic.css')}" rel="stylesheet"/>
+    <link href="{!$Resource.github_style_css}" rel="stylesheet"/>
+
+    <!-- ionic/angularjs js -->
+    <script src="{!URLFOR($Resource.github_app_resources, 'lib/ionic/js/ionic.bundle.js')}"></script>
+
+    <!-- other libs -->
+    <script src="{!$Resource.underscore}"></script>
+    <script src="{!$Resource.github}"></script>
+    <script src="{!URLFOR($Resource.github_app_resources, 'lib/moment/moment.min.js')}"></script>
+    <script src="{!URLFOR($Resource.github_app_resources, 'lib/angular-moment/angular-moment.min.js')}"></script>
+      
+    <!-- the app's js -->
+    <script src="{!$Resource.github_app_js}"></script>
+    <script src="{!$Resource.github_controllers_js}"></script>
+    <script src="{!$Resource.github_services_js}"></script>
+    <script src="{!$Resource.github_s1_js}"></script>
+    <script>
+    // Wait for DOM to be ready
+    window.addEventListener('load', function() {
+    	// Set up github API here. Inject it into the AngularJS $rootScope
+        // so it is available to the Issues service.
+        var rootScope = angular.element(document.body).scope().$root;
+        rootScope.github = new Github({
+            token: "{!accessToken}",
+            auth: "oauth"
+        }, false);
+    });
+    </script>
+  </head>
+  <body ng-app="issues" animation="slide-left-right-ios7">
+    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon ion-chevron-left">
+        Back
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- 
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in static resources
+    -->
+    <ion-nav-view name="issues"></ion-nav-view>
+  </body>
+</html>
+</apex:page>

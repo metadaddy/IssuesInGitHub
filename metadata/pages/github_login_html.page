@@ -1,0 +1,74 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"
+           applyHtmlTag="false" controller="GithubLoginController" docType="html-5.0">
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+    <title>Issues</title>
+
+    <link href="{!URLFOR($Resource.github_app_resources, 'lib/ionic/css/ionic.css')}" rel="stylesheet"/>
+    <link href="{!$Resource.github_style_css}" rel="stylesheet"/>
+
+    <!-- ionic/angularjs js -->
+    <script src="{!URLFOR($Resource.github_app_resources, 'lib/ionic/js/ionic.bundle.js')}"></script>
+
+    <!-- the app's js -->
+    <script src="{!$Resource.github_login_js}"></script>
+    <script src="{!$Resource.github_s1_js}"></script>
+    <script>
+    // We use a hidden iframe to monitor OAuth login. When our OAuth callback page loads
+    // successfully, it calls the callback function here
+    var interval = null;
+    var frame    = null;
+  
+    function callback(accessToken, state) {
+        console.log('callback!');
+        clearInterval(interval);
+        navigateToURL(state);
+    }
+    
+    // When DOM is ready...
+    window.addEventListener("load",function(){
+        // Build loginUrl from Apex controller data
+        var loginUrl = 'https://github.com/login/oauth/authorize?client_id={!clientId}'+
+            '&scope=user,repo,gist&state='+encodeURIComponent('{!state}');
+        
+        // Inject Apex controller data into the AngularJS $scope
+        var scope = angular.element(document.getElementById('loginView')).scope();
+        scope.$apply(function(){
+            scope.loginUrl = loginUrl;
+            scope.logo = '{!$Resource.octocat_jpg}';
+        });
+        
+        // Load the iframe and set an interval to reload it
+        // Sooner or later, the iframe will load the callback page
+        frame = document.getElementById('frame');
+        frame.src = loginUrl;
+        interval = setInterval(function(){
+            console.log('interval!');
+            frame.src = loginUrl;
+        }, 1000);
+    },false);
+    </script>
+  </head>
+  <body ng-app="login" animation="slide-left-right-ios7">
+    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon ion-chevron-left">
+        Back
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="login"></ion-nav-view>
+    <script id="login.html" type="text/ng-template">
+      <ion-view id="loginView" title="Login">
+        <ion-content has-header="true" padding="true">
+          <div class="content">
+            <a href="javascript:window.open('{{loginUrl}}');"><img width="250" src="{{logo}}"/></a>
+            <p><a href="javascript:window.open('{{loginUrl}}')">Login to GitHub</a></p>
+          </div>
+          <iframe style="display: none;" id="frame"></iframe>      
+        </ion-content>
+      </ion-view>
+    </script>
+  </body>
+</html>
+</apex:page>
