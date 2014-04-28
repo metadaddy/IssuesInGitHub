@@ -25,16 +25,13 @@
     <script src="{!$Resource.github_services_js}"></script>
     <script src="{!$Resource.github_s1_js}"></script>
     <script>
-    // Wait for DOM to be ready
-    window.addEventListener('load', function() {
-    	// Set up github API here. Inject it into the AngularJS $rootScope
-        // so it is available to the Issues service.
-        var rootScope = angular.element(document.body).scope().$root;
-        rootScope.github = new Github({
-            token: "{!accessToken}",
-            auth: "oauth"
-        }, false);
-    });
+        // Haven't found a more reliable way of doing this
+        function getGithubAPI(){
+        	return new Github({
+                token: "{!accessToken}",
+                auth: "oauth"
+            }, false);
+        }
     </script>
   </head>
   <body ng-app="issues" animation="slide-left-right-ios7">

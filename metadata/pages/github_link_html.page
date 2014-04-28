@@ -27,74 +27,78 @@
     <script src="{!$Resource.github_services_js}"></script>
     <script src="{!$Resource.github_s1_js}"></script>
     <script>
-    var rootScope;
-      
-    // Wait for DOM to be ready
-    window.addEventListener('load', function() {
-    	// Set up github API here; 
-        // inject it and Apex controller data into the AngularJS $rootScope
-        rootScope = angular.element(document.body).scope().$root;
-        rootScope.github = new Github({
-            token: "{!accessToken}",
-            auth: "oauth"
-        }, false);
-        rootScope.caseId      = '{!case.Id}';
-        rootScope.caseNumber  = '{!case.CaseNumber}';
-        rootScope.linkedIssue = '{!case.GitHub_Issue__c}';
-    });
-
-    // AngularJS app config needs this - unfortunately, I haven't found a 
-    // better way to get it there than a plain old JavaScript variable
-	var github_caseNumber = '{!case.CaseNumber}';
-                                     
-    // When panel is ready...
-    Sfdc.canvas.publisher.subscribe({
-      name: "publisher.showPanel",
-      onData:function(e) {
-        // Can always hit submit
-        Sfdc.canvas.publisher.publish({
-          name:"publisher.setValidForSubmit", 
-          payload:"true"
-        });
-      }
-    });
-    // When user hits submit..
-    Sfdc.canvas.publisher.subscribe({
-      name: "publisher.post",
-      onData:function(e) {
-        // If there's been a change in the linked issue...
-        if (rootScope.linkedIssue !== '{!case.GitHub_Issue__c}') {
-          // Attach it to the case...
-          GithubController.attachIssue('{!Case.Id}', rootScope.linkedIssue, function(result, event){
-            if (event.status) {
-              // If all is good, we're done!
-              Sfdc.canvas.publisher.publish({name: "publisher.close",
-                payload:{ refresh:"true"}});
-            } else {
-              // Oops!
-              alert(event.message);
-            }
-          });
-        } else {
-          // No change - we're done
-          Sfdc.canvas.publisher.publish({name: "publisher.close",
-              payload:{ refresh:"false"}});
+        // Haven't found a more reliable way of doing this
+        function getGithubAPI(){
+        	return new Github({
+                token: "{!accessToken}",
+                auth: "oauth"
+            }, false);
         }
-      }
-    });
-  </script>
-  </head>
-  <body ng-app="issues" animation="slide-left-right-ios7">
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-      <ion-nav-back-button class="button-icon icon ion-chevron-left">
-        Back
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!-- 
+    
+        var rootScope;
+          
+        // Wait for DOM to be ready
+        window.addEventListener('load', function() {
+            // Set up github API here; 
+            // inject it and Apex controller data into the AngularJS $rootScope
+            rootScope = angular.element(document.body).scope().$root;
+            rootScope.caseId      = '{!case.Id}';
+            rootScope.caseNumber  = '{!case.CaseNumber}';
+            rootScope.linkedIssue = '{!case.GitHub_Issue__c}';
+        });
+    
+        // AngularJS app config needs this - unfortunately, I haven't found a 
+        // better way to get it there than a plain old JavaScript variable
+        var github_caseNumber = '{!case.CaseNumber}';
+                                         
+        // When panel is ready...
+        Sfdc.canvas.publisher.subscribe({
+          name: "publisher.showPanel",
+          onData:function(e) {
+            // Can always hit submit
+            Sfdc.canvas.publisher.publish({
+              name:"publisher.setValidForSubmit", 
+              payload:"true"
+            });
+          }
+        });
+        // When user hits submit..
+        Sfdc.canvas.publisher.subscribe({
+          name: "publisher.post",
+          onData:function(e) {
+            // If there's been a change in the linked issue...
+            if (rootScope.linkedIssue !== '{!case.GitHub_Issue__c}') {
+              // Attach it to the case...
+              GithubController.attachIssue('{!Case.Id}', rootScope.linkedIssue, function(result, event){
+                if (event.status) {
+                  // If all is good, we're done!
+                  Sfdc.canvas.publisher.publish({name: "publisher.close",
+                    payload:{ refresh:"true"}});
+                } else {
+                  // Oops!
+                  alert(event.message);
+                }
+              });
+            } else {
+              // No change - we're done
+              Sfdc.canvas.publisher.publish({name: "publisher.close",
+                  payload:{ refresh:"false"}});
+            }
+          }
+        });
+    </script>
+    </head>
+    <body ng-app="issues" animation="slide-left-right-ios7">
+      <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+        <ion-nav-back-button class="button-icon icon ion-chevron-left">
+          Back
+        </ion-nav-back-button>
+      </ion-nav-bar>
+      <!-- 
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in static resources, referenced in github_app_js
-    -->
-    <ion-nav-view name="issues"></ion-nav-view>
-  </body>
-</html>    
+      -->
+      <ion-nav-view name="issues"></ion-nav-view>
+    </body>
+  </html>    
 </apex:page>

@@ -4,8 +4,9 @@ angular.module('issues.services', [])
   console.log('issues.services factory');
     
   // Github API accessors
-  var user   = $rootScope.github.getUser();
-  var issues = $rootScope.github.getIssues();
+  var github = getGithubAPI();
+  var user   = github.getUser();
+  var issues = github.getIssues();
 
   // Cached array of issues from GitHub
   var issueList;
