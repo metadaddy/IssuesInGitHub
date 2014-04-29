@@ -2,7 +2,7 @@
 
 Link GitHub issues to Cases in Salesforce1
 
-[Install the Unmanaged Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tE00000001Yun) - read the installation instructions below!
+[Install the Unmanaged Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tE00000001Yux) - read the installation instructions below!
 
 Imagine you're working on a product that has some or all of its code in a GitHub repository. This app integrates GitHub Issues with Cases in Salesforce. As a user, I can browse open issues assigned to me, link them to cases, and see the link on the Case record. The app does OAuth against GitHub, obtaining an access token to call the GitHub REST API and retrieve issues and comments.
 
