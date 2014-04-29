@@ -32,7 +32,21 @@
                 auth: "oauth"
             }, false);
         }
-    </script>
+    
+    	// S1 doesn't pass hash on formula field hyperlinks, so use
+    	// a query param and set the hash ourselves
+    	function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    
+        var issueId = getParameterByName('issueId');
+        if (issueId) {
+	    	window.location.hash = '#/issue?issueId='+issueId+'&viewIssue=true';
+        }
+      </script>
   </head>
   <body ng-app="issues" animation="slide-left-right-ios7">
     <ion-nav-bar class="bar-stable nav-title-slide-ios7">
