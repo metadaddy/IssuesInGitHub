@@ -25,7 +25,7 @@ To install the app into a DE org, click the 'Install Unmanaged Packed' at the to
 
 You will need to add the app's tab to the left nav menu - go to **Setup | Mobile Administration | Mobile Navigation**, move 'Issues in GitHub' to the 'Selected' list, click 'Up' to move it just after 'Groups', and click 'Save'.
 
-Now add the GitHub link and publisher action to the Case Page Layout. Go to **Setup | Customize | Cases | Case Layouts**, and click 'Edit' next to 'Case Layout'. Drag the 'GitHub Link' field and drop it under 'Case Number' in the 'Case Information' section. Click 'Actions' in the palette, drag 'Link to GitHub Issue' and drop it in the 'Publisher Actions' between 'Post' and 'Log a Call'. 
+Now add the GitHub link and publisher action to the Case Page Layout. Go to **Setup | Customize | Cases | Page Layouts**, and click 'Edit' next to 'Case Layout'. Drag the 'GitHub Link' field and drop it under 'Case Number' in the 'Case Information' section. Click 'Actions' in the palette, drag 'Link to GitHub Issue' and drop it in the 'Publisher Actions' between 'Post' and 'Log a Call'. 
 
 Save the page layout.
 
