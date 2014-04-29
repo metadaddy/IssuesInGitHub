@@ -29,6 +29,8 @@ Now add the GitHub link and publisher action to the Case Page Layout. Go to **Se
 
 Save the page layout.
 
+You will also need to add the GitHub Token to the User Page Layout. Go to **Setup | Customize | Users | Page Layouts**, and click 'Edit' next to 'User Layout'. Drag the 'GitHubAccessToken' field and drop it in the 'Additional Information' section. Save the page layout.
+
 You will also need to create a Custom Setting record with the app's Github credentials. Go to **Setup | Develop | Custom Settings**, click 'Manage' next to 'GitHub App Settings' and create a new record with:
 
 * **Name:** Github App
