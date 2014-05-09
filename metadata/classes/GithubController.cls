@@ -40,6 +40,19 @@ global class GithubController {
     }
     
     @RemoteAction
+    global static Id createCase(String title, String body, String issueUrl) {
+        Case c = new Case(
+            Subject = title.left(255), // max length of Case.Subject = 255
+            Description = body.left(32767), // max length of Case.Description = 32k 
+            GitHub_Issue__c = issueUrl
+        );
+        
+        insert c;
+        
+        return c.Id;
+    }
+    
+    @RemoteAction
     global static String getJsonIssueCaseMapping() {
 	    Map<String, List<Case>> issueCaseMapping = new Map<String, List<Case>>();
         

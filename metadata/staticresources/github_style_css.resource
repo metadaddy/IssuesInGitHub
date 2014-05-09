@@ -41,3 +41,7 @@
     text-decoration: none !important;
     color: black;
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak { 
+    display: none; 
+}

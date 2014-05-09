@@ -7,15 +7,34 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
     <title>Issues</title>
 
-    <link href="{!URLFOR($Resource.github_app_resources, 'lib/ionic/css/ionic.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.github_app_resources, 'lib/ionic/css/ionic.min.css')}" rel="stylesheet"/>
     <link href="{!$Resource.github_style_css}" rel="stylesheet"/>
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  </head>
+  <body ng-app="callback" animation="slide-left-right-ios7">
+    <span ng-cloak="true">
+      <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+        <ion-nav-back-button class="button-icon icon ion-chevron-left">
+          Back
+        </ion-nav-back-button>
+      </ion-nav-bar>
+      <!-- 
+        The views will be rendered in the <ion-nav-view> directive below
+      -->
+      <ion-nav-view name="callback"></ion-nav-view>
+      
+      <script id="callback.html" type="text/ng-template">
+        <ion-view id="callbackView" title="Login Complete">
+          <ion-content has-header="true" padding="true">
+            <div class="content">
+              <p>{{message}}</p>
+            </div>
+          </ion-content>
+        </ion-view>
+      </script>
+    </span>
 
     <!-- ionic/angularjs js -->
-    <script src="{!URLFOR($Resource.github_app_resources, 'lib/ionic/js/ionic.bundle.js')}"></script>
+    <script src="{!URLFOR($Resource.github_app_resources, 'lib/ionic/js/ionic.bundle.min.js')}"></script>
 
     <!-- the app's js -->
     <script src="{!$Resource.github_callback_js}"></script>
@@ -42,27 +61,6 @@
           }
         });        
     });
-    </script>
-  </head>
-  <body ng-app="callback" animation="slide-left-right-ios7">
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-      <ion-nav-back-button class="button-icon icon ion-chevron-left">
-        Back
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!-- 
-      The views will be rendered in the <ion-nav-view> directive below
-    -->
-    <ion-nav-view name="callback"></ion-nav-view>
-      
-    <script id="callback.html" type="text/ng-template">
-      <ion-view id="callbackView" title="Login Complete">
-        <ion-content has-header="true" padding="true">
-          <div class="content">
-            <p>{{message}}</p>
-          </div>
-        </ion-content>
-      </ion-view>
     </script>
   </body>
 </html>

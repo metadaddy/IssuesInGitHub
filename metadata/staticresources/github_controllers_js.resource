@@ -7,7 +7,8 @@ angular.module('issues.controllers', [])
   });
 })
 
-.controller('IssueDetailCtrl', function($scope, $stateParams, Issues, CaseIssueMapping) {
+.controller('IssueDetailCtrl', function($scope, $stateParams, $ionicPopup,
+                                        Issues, CaseIssueMapping) {
   console.log('IssueDetailCtrl');
   $scope.linkToCases = ($stateParams.viewIssue === null);
   Issues.get($stateParams.issueId).then(function(issue){
@@ -18,9 +19,27 @@ angular.module('issues.controllers', [])
       });
     }
   });
-  CaseIssueMapping.get($stateParams.issueId).then(function(cases){
-    $scope.cases = cases;
-  });
+  $scope.createCase = function() {
+    $ionicPopup.confirm({
+      title: 'Create Case',
+      content: 'Create Case from Issue \''+$scope.issue.title+'\'?'
+    }).then(function(res) {
+      if(res) {
+        GithubController.createCase($scope.issue.title, $scope.issue.body, 
+                                    $stateParams.issueId, function(result, event){
+          CaseIssueMapping.clear();
+          CaseIssueMapping.get($stateParams.issueId).then(function(cases){
+            console.log('cases', cases);
+            $scope.issue.cases = cases;
+          });
+          if (event.status) {
+            // Go to case
+            navigateToSObject(result);
+          }
+        });
+      }
+    });
+  };
 })
 
 .controller('LinkCtrl', function($scope, $rootScope, Issues, CaseIssueMapping, $q) {

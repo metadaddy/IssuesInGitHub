@@ -1,6 +1,6 @@
 angular.module('issues.services', [])
 
-.factory('Issues', function($q, $rootScope) {
+.factory('Issues', function($q, $rootScope, CaseIssueMapping) {
   console.log('issues.services factory');
     
   // Github API accessors
@@ -36,14 +36,18 @@ angular.module('issues.services', [])
           });
         } else {
           // We have the issues!
-          console.log('issues', resp);
           issueList = resp;
-          // Build a map from issue URL to issue object
-          issueMap = {}
-          for (var i = 0; i < issueList.length; i++) {
+          CaseIssueMapping.all().then(function(issueCasesMap){
+            // Build a map from issue URL to issue object
+            // and set cases property
+            issueMap = {}
+            for (var i = 0; i < issueList.length; i++) {
               issueMap[issueList[i].url] = issueList[i];
-          }
-          deferred.resolve(issueList);
+              issueList[i].cases = issueCasesMap[issueList[i].url] || [];
+            }
+            console.log('issues', issueList);
+            deferred.resolve(issueList);
+          });
         }
       });
 
@@ -116,6 +120,9 @@ angular.module('issues.services', [])
       }
 
       return deferred.promise;      
+    },
+    clear: function() {
+      mapping = null;   
     }
   }
 });

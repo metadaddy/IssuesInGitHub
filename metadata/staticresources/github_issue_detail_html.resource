@@ -19,10 +19,10 @@
         {{issue.body}}
       </ion-item>
       <h4 ng-if="cases">Linked to cases</h4>
-      <ion-item ng-if="linkToCases" ng-repeat="case in cases" href="javascript:navigateToSObject('{{case.Id}}')">
+      <ion-item ng-if="linkToCases" ng-repeat="case in issue.cases" href="javascript:navigateToSObject('{{case.Id}}')">
         {{case.CaseNumber}}
       </ion-item>
-      <ion-item ng-if="! linkToCases" ng-repeat="case in cases">
+      <ion-item ng-if="! linkToCases" ng-repeat="case in issue.cases">
         {{case.CaseNumber}}
       </ion-item>
       <h4 ng-if="issue.comments">Comments</h4>
@@ -33,5 +33,8 @@
         </div>
       </ion-item>
     </ion-list>
+    <button ng-if="issue.cases.length == 0" class="button button-balanced button-block" ng-click="createCase()">
+      Create Case from Issue
+    </button>
   </ion-content>
 </ion-view>
