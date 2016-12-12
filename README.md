@@ -49,45 +49,45 @@ Run through the demo at least a couple of times, and leave some issues linked to
 
 In the Salesforce1 Mobile App, open the left nav menu, and select 'Issues in GitHub'. If you deleted your GitHub access token (see 'Preparation', above), you should see a login page with the GitHub logo.
 
-![Login to GitHub](http://metadaddy-sfdc.github.io/IssuesInGitHub/LoginToGithub.PNG)
+![Login to GitHub](http://metadaddy.github.io/IssuesInGitHub/LoginToGithub.PNG)
 
 Touch the logo, and you will be prompted to log in to GitHub, and authorize the app to access your data. 
 
-![Authorize App](http://metadaddy-sfdc.github.io/IssuesInGitHub/AuthorizeApp.PNG)
+![Authorize App](http://metadaddy.github.io/IssuesInGitHub/AuthorizeApp.PNG)
 
 Don't worry if it skips the login page and goes straight to authorization - if you've been round this loop, the browser has your GitHub cookie - it's not important for the demo flow. Also, if you don't see the GitHub authorization screen within a few seconds, just close the window and touch the GitHub logo again - occasionally this page seems to glitch.
 
 Once you've authorized the app, you should see a list of issues from GitHub. 
 
-![Issue List](http://metadaddy-sfdc.github.io/IssuesInGitHub/IssueList.PNG)
+![Issue List](http://metadaddy.github.io/IssuesInGitHub/IssueList.PNG)
 
 This JavaScript single-page app, running on a Visualforce page in Salesforce1, is retrieving this data directly from GitHub, without hitting the Apex controller.
 
 Note that it will only show open issues assigned to you, so if you see an empty list of issues, go create some in GitHub and assign them to yourself (see 'Preparation', above). You can touch an issue to drill down and see more detail, including any comments posted to the issue, and any cases that the issue is linked to. 
 
-![Issue Detail](http://metadaddy-sfdc.github.io/IssuesInGitHub/IssueDetail.PNG)
+![Issue Detail](http://metadaddy.github.io/IssuesInGitHub/IssueDetail.PNG)
 
 You can touch a linked case to go to its record detail page - seamless integration between the app and Salesforce1.
 
-![Case](http://metadaddy-sfdc.github.io/IssuesInGitHub/Case.PNG)
+![Case](http://metadaddy.github.io/IssuesInGitHub/Case.PNG)
 
 Now let's link an issue to a case. Open the left nav menu, and select 'Cases' (it should be visible at the top of the 'Recent' sub menu - if not, you'll need to pin it in the Search results - see 'Preparation', above). Select a Case, and open the publisher (plus sign on bottom right of screen). 
 
-![Publisher Actions](http://metadaddy-sfdc.github.io/IssuesInGitHub/PublisherActions.PNG)
+![Publisher Actions](http://metadaddy.github.io/IssuesInGitHub/PublisherActions.PNG)
 
 Select 'Link to GitHub Issue' and you should see a list of issues. 
 
-![Link Issue](http://metadaddy-sfdc.github.io/IssuesInGitHub/LinkIssue.PNG)
+![Link Issue](http://metadaddy.github.io/IssuesInGitHub/LinkIssue.PNG)
 
 This time, touching an issue will select it for linking to the case. A link icon indicates the selected issue. You can play around in this screen a little - the icon will move to the last touched issue, and touching the linked issue will deselect it.
 
 When you've selected an issue, touch 'Submit' at the top of the screen. You'll be taken back to the Case record, which will refresh. Swipe left to see the Case detail, and scroll down to the 'GitHub Link' field. 
 
-![Case Detail](http://metadaddy-sfdc.github.io/IssuesInGitHub/CaseDetail.PNG)
+![Case Detail](http://metadaddy.github.io/IssuesInGitHub/CaseDetail.PNG)
 
 Touch 'View GitHub Issue' and the detail page for the linked issue should appear. 
 
-![Linked Issue](http://metadaddy-sfdc.github.io/IssuesInGitHub/LinkedIssue.PNG)
+![Linked Issue](http://metadaddy.github.io/IssuesInGitHub/LinkedIssue.PNG)
 
 Notice that the linked case is listed on the issue detail. Note that, currently, the 'spinner' stays active, even though the detail page has loaded. I'm investigating why this is the case - it might be fixed by the time you run through this.
 
